@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,46 +6,28 @@ using System.Threading.Tasks;
 
 namespace Salary
 {
-    class Person
+    class Program
     {
-        private string firstName;
-        private string lastName;
-        private int age;
-        private decimal salary;
-
-        public Person(string firstName, string lastName,int age, decimal salary)
+        static void Main(string[] args)
         {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.age = age;
-            this.salary = salary;
-        }
-
-        public string FirstName
-        {
-            get { return this.firstName; }
-            set { this.firstName = value; }
-        }
-
-        public int Age
-        {
-            get { return this.age; }
-            set { this.age = value; }
-        }
-        public override string ToString()
-        {
-            return $"{this.firstName} {this.lastName} receives {this.salary} leva.";
-        }
-        public void IncreaseSalary(decimal percentage)
-        {
-            if (this.age >= 30)
+            var lines = int.Parse(Console.ReadLine());
+            var persons = new List<Person>();
+            for (int i = 0; i < lines; i++)
             {
-                this.salary += this.salary * percentage / 100;
+                var cmdArgs = Console.ReadLine().Split();
+                var person = new Person(cmdArgs[0],
+                                        cmdArgs[1],
+                                        int.Parse(cmdArgs[2]),
+                                        decimal.Parse(cmdArgs[3]));
+
+                persons.Add(person);
             }
-            else
-            {
-                this.salary += this.salary * percentage / 200;
-            }
+            var bonus = decimal.Parse(Console.ReadLine());
+            persons.ForEach(p => p.IncreaseSalary(bonus));
+            persons.ForEach(p => Console.WriteLine(p.ToString()));
+
+            Console.ReadKey();
         }
     }
 }
+
